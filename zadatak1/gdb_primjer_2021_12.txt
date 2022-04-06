@@ -1,0 +1,270 @@
+#Aleksandar Beslic 1198_17
+
+
+# Postavimo breakpoint-ove prije i poslje funkcije
+Breakpoint 1 at 0x11cc: file primjer_2021_12.c, line 14.
+Breakpoint 2 at 0x1169: file primjer_2021_12.c, line 6.
+
+#Hocemo da vidimo sta se desava sa rax, rsp i rbp
+1: /a $rax = <error: No registers.>
+2: /a $sp = <error: No registers.>
+3: /a $bp = <error: No registers.>
+
+#Pokrenimo sa ragumetom AAAAAAAA
+Starting program: /home/alex/Documents/PURV2022/Lab 1/domaci AAAAAAAA
+
+Breakpoint 1, main (argc=2, argv=0x7fffffffdf58) at primjer_2021_12.c:14
+14		funkcija(argv);
+1: /a $rax = 0x5555555551b9 <main>
+2: /a $sp = 0x7fffffffde50
+3: /a $bp = 0xffffffffffffde60
+
+#Predjimo na funkciju
+Continuing.
+
+Breakpoint 2, funkcija (argumenti=0x55555555522d <__libc_csu_init+77>) at primjer_2021_12.c:6
+6	{
+1: /a $rax = 0x7fffffffdf58
+2: /a $sp = 0x7fffffffde48
+3: /a $bp = 0xffffffffffffde60
+
+#Sta kaze asembler
+
+Dump of assembler code for function funkcija:
+=> 0x0000555555555169 <+0>:	endbr64 
+   0x000055555555516d <+4>:	push   %rbp
+   0x000055555555516e <+5>:	mov    %rsp,%rbp
+   0x0000555555555171 <+8>:	sub    $0x20,%rsp
+   0x0000555555555175 <+12>:	mov    %rdi,-0x18(%rbp)
+   0x0000555555555179 <+16>:	mov    %fs:0x28,%rax
+   0x0000555555555182 <+25>:	mov    %rax,-0x8(%rbp)
+   0x0000555555555186 <+29>:	xor    %eax,%eax
+   0x0000555555555188 <+31>:	mov    -0x18(%rbp),%rax
+   0x000055555555518c <+35>:	add    $0x8,%rax
+   0x0000555555555190 <+39>:	mov    (%rax),%rdx
+   0x0000555555555193 <+42>:	lea    -0xa(%rbp),%rax
+   0x0000555555555197 <+46>:	mov    %rdx,%rsi
+   0x000055555555519a <+49>:	mov    %rax,%rdi
+   0x000055555555519d <+52>:	callq  0x555555555060 <strcpy@plt>
+   0x00005555555551a2 <+57>:	nop
+   0x00005555555551a3 <+58>:	mov    -0x8(%rbp),%rax
+   0x00005555555551a7 <+62>:	xor    %fs:0x28,%rax
+   0x00005555555551b0 <+71>:	je     0x5555555551b7 <funkcija+78>
+   0x00005555555551b2 <+73>:	callq  0x555555555070 <__stack_chk_fail@plt>
+   0x00005555555551b7 <+78>:	leaveq 
+   0x00005555555551b8 <+79>:	retq   
+End of assembler dump.
+
+#Od <+4> do <+25> postavlja se zastita za stack smashing
+
+#Postavimo break prije i poslje strcpy
+
+Breakpoint 3 at 0x55555555519d: file primjer_2021_12.c, line 8.
+Breakpoint 4 at 0x5555555551a2: file primjer_2021_12.c, line 9.
+
+#Kakvo je stanje sad na steku
+
+0x7fffffffde48:	0x555551d8	0x00005555	0xffffdf58	0x00007fff
+0x7fffffffde58:	0x00000000	0x00000002	0x00000000	0x00000000
+0x7fffffffde68:	0xf7de30b3	0x00007fff	0xf7ffc620	0x00007fff
+0x7fffffffde78:	0xffffdf58	0x00007fff	0x00000000	0x00000002
+0x7fffffffde88:	0x555551b9	0x00005555	0x555551e0	0x00005555
+
+#Trenutak prije strcpy
+Continuing.
+
+Breakpoint 3, 0x000055555555519d in funkcija (argumenti=0x7fffffffdf58) at primjer_2021_12.c:8
+8	    strcpy(niz, argumenti[1]);
+1: /a $rax = 0x7fffffffde36
+2: /a $sp = 0x7fffffffde20
+3: /a $bp = 0xffffffffffffde40
+
+#Stek
+
+0x7fffffffde20:	0xffffde46	0x00007fff	0xffffdf58	0x00007fff
+0x7fffffffde30:	0xf7facfc8	0x00007fff	0x92a44a00	0xc64e5c82
+0x7fffffffde40:	0xffffde60	0x00007fff	0x555551d8	0x00005555
+0x7fffffffde50:	0xffffdf58	0x00007fff	0x00000000	0x00000002
+0x7fffffffde60:	0x00000000	0x00000000	0xf7de30b3	0x00007fff
+
+
+#Sta je u rax da nije &niz
+
+$1 = (char (*)[2]) 0x7fffffffde36
+#Jeste
+
+#Sta ima u ostalim registrima
+
+rax            0x7fffffffde36      140737488346678
+rbx            0x5555555551e0      93824992236000
+rcx            0x5555555551e0      93824992236000
+rdx            0x7fffffffe2f3      140737488347891
+rsi            0x7fffffffe2f3      140737488347891
+rdi            0x7fffffffde36      140737488346678
+rbp            0x7fffffffde40      0x7fffffffde40
+rsp            0x7fffffffde20      0x7fffffffde20
+r8             0x0                 0
+r9             0x7ffff7fe0d50      140737354009936
+r10            0xffffffff          4294967295
+r11            0x7ffff7f6e960      140737353541984
+r12            0x555555555080      93824992235648
+r13            0x7fffffffdf50      140737488346960
+r14            0x0                 0
+r15            0x0                 0
+rip            0x55555555519d      0x55555555519d <funkcija+52>
+eflags         0x216               [ PF AF IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+
+
+#Koje su se sve promjene desili nakon strcpy
+Continuing.
+
+Breakpoint 4, funkcija (argumenti=0x7fffffffdf58) at primjer_2021_12.c:9
+9	    return;
+1: /a $rax = 0x7fffffffde36
+2: /a $sp = 0x7fffffffde20
+3: /a $bp = 0xffffffffffffde40
+
+#Stek
+
+0x7fffffffde20:	0xffffde46	0x00007fff	0xffffdf58	0x00007fff
+0x7fffffffde30:	0xf7facfc8	0x41417fff	0x41414141	0xc6004141
+0x7fffffffde40:	0xffffde60	0x00007fff	0x555551d8	0x00005555
+0x7fffffffde50:	0xffffdf58	0x00007fff	0x00000000	0x00000002
+0x7fffffffde60:	0x00000000	0x00000000	0xf7de30b3	0x00007fff
+
+#Da vidimo sad niz
+$2 = "AA"
+
+#U nizu se sad nalazi AA a na steku od adrese ...de36 (adresa niza) upisano je 8*41 (0x41 = A),
+ i imalo je strcpy izmjenio i druge vrijednosti na steku
+
+#Gdje smo sad u alembleru
+
+Dump of assembler code for function funkcija:
+   0x0000555555555169 <+0>:	endbr64 
+   0x000055555555516d <+4>:	push   %rbp
+   0x000055555555516e <+5>:	mov    %rsp,%rbp
+   0x0000555555555171 <+8>:	sub    $0x20,%rsp
+   0x0000555555555175 <+12>:	mov    %rdi,-0x18(%rbp)
+   0x0000555555555179 <+16>:	mov    %fs:0x28,%rax
+   0x0000555555555182 <+25>:	mov    %rax,-0x8(%rbp)
+   0x0000555555555186 <+29>:	xor    %eax,%eax
+   0x0000555555555188 <+31>:	mov    -0x18(%rbp),%rax
+   0x000055555555518c <+35>:	add    $0x8,%rax
+   0x0000555555555190 <+39>:	mov    (%rax),%rdx
+   0x0000555555555193 <+42>:	lea    -0xa(%rbp),%rax
+   0x0000555555555197 <+46>:	mov    %rdx,%rsi
+   0x000055555555519a <+49>:	mov    %rax,%rdi
+   0x000055555555519d <+52>:	callq  0x555555555060 <strcpy@plt>
+=> 0x00005555555551a2 <+57>:	nop
+   0x00005555555551a3 <+58>:	mov    -0x8(%rbp),%rax
+   0x00005555555551a7 <+62>:	xor    %fs:0x28,%rax
+   0x00005555555551b0 <+71>:	je     0x5555555551b7 <funkcija+78>
+   0x00005555555551b2 <+73>:	callq  0x555555555070 <__stack_chk_fail@plt>
+   0x00005555555551b7 <+78>:	leaveq 
+   0x00005555555551b8 <+79>:	retq   
+End of assembler dump.
+
+#Naredni dio koda provjerava da li smo pregazili kanarinca, u rax bi trebalo da bude 0 ako nismo
+#Prvo vidimo i ostale registre
+
+rax            0x7fffffffde36      140737488346678
+rbx            0x5555555551e0      93824992236000
+rcx            0x4141414141414141  4702111234474983745
+rdx            0x8                 8
+rsi            0x7fffffffe2f3      140737488347891
+rdi            0x7fffffffde36      140737488346678
+rbp            0x7fffffffde40      0x7fffffffde40
+rsp            0x7fffffffde20      0x7fffffffde20
+r8             0x0                 0
+r9             0x7ffff7fe0d50      140737354009936
+r10            0xffffffff          4294967295
+r11            0x7ffff7f6e108      140737353539848
+r12            0x555555555080      93824992235648
+r13            0x7fffffffdf50      140737488346960
+r14            0x0                 0
+r15            0x0                 0
+rip            0x5555555551a2      0x5555555551a2 <funkcija+57>
+eflags         0x206               [ PF IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+
+#Prodjimo kroz asembler liniju po liniju
+
+10	}
+1: /a $rax = 0x7fffffffde36
+2: /a $sp = 0x7fffffffde20
+3: /a $bp = 0xffffffffffffde40
+
+0x00005555555551a7	10	}
+1: /a $rax = 0xc600414141414141
+2: /a $sp = 0x7fffffffde20
+3: /a $bp = 0xffffffffffffde40
+
+0x00005555555551b0	10	}
+1: /a $rax = 0x4e1dc3d3e50b41
+2: /a $sp = 0x7fffffffde20
+3: /a $bp = 0xffffffffffffde40
+
+Dump of assembler code for function funkcija:
+   0x0000555555555169 <+0>:	endbr64 
+   0x000055555555516d <+4>:	push   %rbp
+   0x000055555555516e <+5>:	mov    %rsp,%rbp
+   0x0000555555555171 <+8>:	sub    $0x20,%rsp
+   0x0000555555555175 <+12>:	mov    %rdi,-0x18(%rbp)
+   0x0000555555555179 <+16>:	mov    %fs:0x28,%rax
+   0x0000555555555182 <+25>:	mov    %rax,-0x8(%rbp)
+   0x0000555555555186 <+29>:	xor    %eax,%eax
+   0x0000555555555188 <+31>:	mov    -0x18(%rbp),%rax
+   0x000055555555518c <+35>:	add    $0x8,%rax
+   0x0000555555555190 <+39>:	mov    (%rax),%rdx
+   0x0000555555555193 <+42>:	lea    -0xa(%rbp),%rax
+   0x0000555555555197 <+46>:	mov    %rdx,%rsi
+   0x000055555555519a <+49>:	mov    %rax,%rdi
+   0x000055555555519d <+52>:	callq  0x555555555060 <strcpy@plt>
+   0x00005555555551a2 <+57>:	nop
+   0x00005555555551a3 <+58>:	mov    -0x8(%rbp),%rax
+   0x00005555555551a7 <+62>:	xor    %fs:0x28,%rax
+=> 0x00005555555551b0 <+71>:	je     0x5555555551b7 <funkcija+78>
+   0x00005555555551b2 <+73>:	callq  0x555555555070 <__stack_chk_fail@plt>
+   0x00005555555551b7 <+78>:	leaveq 
+   0x00005555555551b8 <+79>:	retq   
+End of assembler dump.
+
+#Sad radimo provjeru, ako je sve dobro izaci cemo iz funkcije a ako nije idemo u __stack_chk_fail
+
+0x00005555555551b2	10	}
+1: /a $rax = 0x4e1dc3d3e50b41
+2: /a $sp = 0x7fffffffde20
+3: /a $bp = 0xffffffffffffde40
+
+0x0000555555555070 in __stack_chk_fail@plt ()
+1: /a $rax = 0x4e1dc3d3e50b41
+2: /a $sp = 0x7fffffffde18
+3: /a $bp = 0xffffffffffffde40
+
+#Gdje smo
+Dump of assembler code for function __stack_chk_fail@plt:
+=> 0x0000555555555070 <+0>:	endbr64 
+   0x0000555555555074 <+4>:	bnd jmpq *0x2f55(%rip)        # 0x555555557fd0 <__stack_chk_fail@got.plt>
+   0x000055555555507b <+11>:	nopl   0x0(%rax,%rax,1)
+End of assembler dump.
+
+#Usli smo u __stack_chk_fail tj. u mehanizam koji terminira funkciju koja je uradila stack overflow. 
+Nasa funkcija je rezervisala prostor za dva elementa niza a kada smo uradili strcpy sa AAAAAAAA kopirali 
+smo taj string i stavili u nas niz od adrese ...de36. Prva dva elementa se nalaze tamo gdje trebaju da budu
+ a ostali su stali odmah iza njih ali su prepisali neke druge vrijednosti koje se nalaze na steku.
+ Ako je bilo samo AA greska se nebi desila. Nasa funkcija radi ali nije sigurna, jer ulazni niz mozemo 
+tako napraviti da prepisemo neke vrijednosti na steku a stim da nametnemo neku nasu adresu na koju ce rsp da pokazuje. 
+Desice se stack overflow funkcija ce biti terminira ali sada rsp pokazuje na nasu adresu, a sa tim mozemo 
+da uradimo sta god da zelimo.
