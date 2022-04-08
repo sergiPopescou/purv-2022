@@ -1,0 +1,462 @@
+Breakpoint 1 at 0x115c: file primjer_2021_08.c, line 7.
+Breakpoint 2 at 0x1149: file primjer_2021_08.c, line 5.
+Breakpoint 3 at 0x1149: file primjer_2021_08.c, line 5.
+Starting program: /home/nemanja/Desktop/Programiranje u realnom vremenu/Zadace/Zadaca 1/purv-2022/zadaca1/primjer_2021_08 
+
+#Postavimo breakpoint na main()
+
+Breakpoint 3, main () at primjer_2021_08.c:5
+5	{ 
+No symbol "s" in current context.
+Dump of assembler code for function main:
+primjer_2021_08.c:
+5	{ 
+=> 0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+6	   int n = 2; 
+   0x0000555555555155 <+12>:	movl   $0x2,-0x4(%rbp)
+
+7	   scanf("%d",n); 
+   0x000055555555515c <+19>:	mov    -0x4(%rbp),%eax
+   0x000055555555515f <+22>:	mov    %eax,%esi
+   0x0000555555555161 <+24>:	lea    0xe9c(%rip),%rdi        # 0x555555556004
+   0x0000555555555168 <+31>:	mov    $0x0,%eax
+   0x000055555555516d <+36>:	callq  0x555555555050 <__isoc99_scanf@plt>
+
+8	   return 0; 
+   0x0000555555555172 <+41>:	mov    $0x0,%eax
+
+9	} 
+   0x0000555555555177 <+46>:	leaveq 
+   0x0000555555555178 <+47>:	retq   
+End of assembler dump.
+rax            0x555555555149      93824992235849
+rbx            0x555555555180      93824992235904
+rcx            0x555555555180      93824992235904
+rdx            0x7fffffffde98      140737488346776
+rsi            0x7fffffffde88      140737488346760
+rdi            0x1                 1
+rbp            0x0                 0x0
+rsp            0x7fffffffdd98      0x7fffffffdd98
+r8             0x0                 0
+r9             0x7ffff7fe0d50      140737354009936
+r10            0x0                 0
+r11            0x7ffff7f738f0      140737353562352
+r12            0x555555555060      93824992235616
+r13            0x7fffffffde80      140737488346752
+r14            0x0                 0
+r15            0x0                 0
+rip            0x555555555149      0x555555555149 <main>
+eflags         0x246               [ PF ZF IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+6	   int n = 2; 
+Dump of assembler code for function main:
+primjer_2021_08.c:
+5	{ 
+   0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+6	   int n = 2; 
+=> 0x0000555555555155 <+12>:	movl   $0x2,-0x4(%rbp)
+
+7	   scanf("%d",n); 
+   0x000055555555515c <+19>:	mov    -0x4(%rbp),%eax
+   0x000055555555515f <+22>:	mov    %eax,%esi
+   0x0000555555555161 <+24>:	lea    0xe9c(%rip),%rdi        # 0x555555556004
+   0x0000555555555168 <+31>:	mov    $0x0,%eax
+   0x000055555555516d <+36>:	callq  0x555555555050 <__isoc99_scanf@plt>
+
+8	   return 0; 
+   0x0000555555555172 <+41>:	mov    $0x0,%eax
+
+9	} 
+   0x0000555555555177 <+46>:	leaveq 
+   0x0000555555555178 <+47>:	retq   
+End of assembler dump.
+rax            0x555555555149      93824992235849
+rbx            0x555555555180      93824992235904
+rcx            0x555555555180      93824992235904
+rdx            0x7fffffffde98      140737488346776
+rsi            0x7fffffffde88      140737488346760
+rdi            0x1                 1
+rbp            0x7fffffffdd90      0x7fffffffdd90
+rsp            0x7fffffffdd80      0x7fffffffdd80
+r8             0x0                 0
+r9             0x7ffff7fe0d50      140737354009936
+r10            0x0                 0
+r11            0x7ffff7f738f0      140737353562352
+r12            0x555555555060      93824992235616
+r13            0x7fffffffde80      140737488346752
+r14            0x0                 0
+r15            0x0                 0
+rip            0x555555555155      0x555555555155 <main+12>
+eflags         0x202               [ IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+7	   scanf("%d",n); 
+Dump of assembler code for function main:
+primjer_2021_08.c:
+5	{ 
+   0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+6	   int n = 2; 
+   0x0000555555555155 <+12>:	movl   $0x2,-0x4(%rbp)
+
+7	   scanf("%d",n); 
+=> 0x000055555555515c <+19>:	mov    -0x4(%rbp),%eax
+   0x000055555555515f <+22>:	mov    %eax,%esi
+   0x0000555555555161 <+24>:	lea    0xe9c(%rip),%rdi        # 0x555555556004
+   0x0000555555555168 <+31>:	mov    $0x0,%eax
+   0x000055555555516d <+36>:	callq  0x555555555050 <__isoc99_scanf@plt>
+
+8	   return 0; 
+   0x0000555555555172 <+41>:	mov    $0x0,%eax
+
+9	} 
+   0x0000555555555177 <+46>:	leaveq 
+   0x0000555555555178 <+47>:	retq   
+End of assembler dump.
+0x000055555555515f	7	   scanf("%d",n); 
+0x0000555555555161	7	   scanf("%d",n); 
+Dump of assembler code for function main:
+primjer_2021_08.c:
+5	{ 
+   0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+6	   int n = 2; 
+   0x0000555555555155 <+12>:	movl   $0x2,-0x4(%rbp)
+
+7	   scanf("%d",n); 
+   0x000055555555515c <+19>:	mov    -0x4(%rbp),%eax
+   0x000055555555515f <+22>:	mov    %eax,%esi
+=> 0x0000555555555161 <+24>:	lea    0xe9c(%rip),%rdi        # 0x555555556004
+   0x0000555555555168 <+31>:	mov    $0x0,%eax
+   0x000055555555516d <+36>:	callq  0x555555555050 <__isoc99_scanf@plt>
+
+8	   return 0; 
+   0x0000555555555172 <+41>:	mov    $0x0,%eax
+
+9	} 
+   0x0000555555555177 <+46>:	leaveq 
+   0x0000555555555178 <+47>:	retq   
+End of assembler dump.
+0x0000555555555168	7	   scanf("%d",n); 
+Dump of assembler code for function main:
+primjer_2021_08.c:
+5	{ 
+   0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+6	   int n = 2; 
+   0x0000555555555155 <+12>:	movl   $0x2,-0x4(%rbp)
+
+7	   scanf("%d",n); 
+   0x000055555555515c <+19>:	mov    -0x4(%rbp),%eax
+   0x000055555555515f <+22>:	mov    %eax,%esi
+   0x0000555555555161 <+24>:	lea    0xe9c(%rip),%rdi        # 0x555555556004
+=> 0x0000555555555168 <+31>:	mov    $0x0,%eax
+   0x000055555555516d <+36>:	callq  0x555555555050 <__isoc99_scanf@plt>
+
+8	   return 0; 
+   0x0000555555555172 <+41>:	mov    $0x0,%eax
+
+9	} 
+   0x0000555555555177 <+46>:	leaveq 
+   0x0000555555555178 <+47>:	retq   
+End of assembler dump.
+No symbol "rbp" in current context.
+1: $rbp = (void *) 0x7fffffffdd90
+rax            0x2                 2
+rbx            0x555555555180      93824992235904
+rcx            0x555555555180      93824992235904
+rdx            0x7fffffffde98      140737488346776
+rsi            0x2                 2
+rdi            0x555555556004      93824992239620
+rbp            0x7fffffffdd90      0x7fffffffdd90
+rsp            0x7fffffffdd80      0x7fffffffdd80
+r8             0x0                 0
+r9             0x7ffff7fe0d50      140737354009936
+r10            0x0                 0
+r11            0x7ffff7f738f0      140737353562352
+r12            0x555555555060      93824992235616
+r13            0x7fffffffde80      140737488346752
+r14            0x0                 0
+r15            0x0                 0
+rip            0x555555555168      0x555555555168 <main+31>
+eflags         0x202               [ IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+0x000055555555516d	7	   scanf("%d",n); 
+1: $rbp = (void *) 0x7fffffffdd90
+Dump of assembler code for function main:
+primjer_2021_08.c:
+5	{ 
+   0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+6	   int n = 2; 
+   0x0000555555555155 <+12>:	movl   $0x2,-0x4(%rbp)
+
+7	   scanf("%d",n); 
+   0x000055555555515c <+19>:	mov    -0x4(%rbp),%eax
+   0x000055555555515f <+22>:	mov    %eax,%esi
+   0x0000555555555161 <+24>:	lea    0xe9c(%rip),%rdi        # 0x555555556004
+   0x0000555555555168 <+31>:	mov    $0x0,%eax
+=> 0x000055555555516d <+36>:	callq  0x555555555050 <__isoc99_scanf@plt>
+
+8	   return 0; 
+   0x0000555555555172 <+41>:	mov    $0x0,%eax
+
+9	} 
+   0x0000555555555177 <+46>:	leaveq 
+   0x0000555555555178 <+47>:	retq   
+End of assembler dump.
+
+#Ovdje nam se pozvala funkcija scanf()
+
+0x0000555555555050 in __isoc99_scanf@plt ()
+1: $rbp = (void *) 0x7fffffffdd90
+Dump of assembler code for function __isoc99_scanf@plt:
+=> 0x0000555555555050 <+0>:	endbr64 
+   0x0000555555555054 <+4>:	bnd jmpq *0x2f75(%rip)        # 0x555555557fd0 <__isoc99_scanf@got.plt>
+   0x000055555555505b <+11>:	nopl   0x0(%rax,%rax,1)
+End of assembler dump.
+0x0000555555555054 in __isoc99_scanf@plt ()
+1: $rbp = (void *) 0x7fffffffdd90
+__isoc99_scanf (format=0x555555556004 "%d") at isoc99_scanf.c:25
+25	isoc99_scanf.c: No such file or directory.
+1: $rbp = (void *) 0x7fffffffdd90
+Dump of assembler code for function __isoc99_scanf:
+isoc99_scanf.c:
+25	in isoc99_scanf.c
+=> 0x00007ffff7e27230 <+0>:	endbr64 
+   0x00007ffff7e27234 <+4>:	sub    $0xd8,%rsp
+   0x00007ffff7e2723b <+11>:	mov    %rdi,%r10
+   0x00007ffff7e2723e <+14>:	mov    %rsi,0x28(%rsp)
+   0x00007ffff7e27243 <+19>:	mov    %rdx,0x30(%rsp)
+   0x00007ffff7e27248 <+24>:	mov    %rcx,0x38(%rsp)
+   0x00007ffff7e2724d <+29>:	mov    %r8,0x40(%rsp)
+   0x00007ffff7e27252 <+34>:	mov    %r9,0x48(%rsp)
+   0x00007ffff7e27257 <+39>:	test   %al,%al
+   0x00007ffff7e27259 <+41>:	je     0x7ffff7e27292 <__isoc99_scanf+98>
+   0x00007ffff7e2725b <+43>:	movaps %xmm0,0x50(%rsp)
+   0x00007ffff7e27260 <+48>:	movaps %xmm1,0x60(%rsp)
+   0x00007ffff7e27265 <+53>:	movaps %xmm2,0x70(%rsp)
+   0x00007ffff7e2726a <+58>:	movaps %xmm3,0x80(%rsp)
+   0x00007ffff7e27272 <+66>:	movaps %xmm4,0x90(%rsp)
+   0x00007ffff7e2727a <+74>:	movaps %xmm5,0xa0(%rsp)
+   0x00007ffff7e27282 <+82>:	movaps %xmm6,0xb0(%rsp)
+   0x00007ffff7e2728a <+90>:	movaps %xmm7,0xc0(%rsp)
+   0x00007ffff7e27292 <+98>:	mov    %fs:0x28,%rax
+   0x00007ffff7e2729b <+107>:	mov    %rax,0x18(%rsp)
+   0x00007ffff7e272a0 <+112>:	xor    %eax,%eax
+
+26	in isoc99_scanf.c
+27	in isoc99_scanf.c
+28	in isoc99_scanf.c
+29	in isoc99_scanf.c
+   0x00007ffff7e272a2 <+114>:	lea    0xe0(%rsp),%rax
+   0x00007ffff7e272aa <+122>:	mov    %rsp,%rdx
+   0x00007ffff7e272ad <+125>:	mov    %r10,%rsi
+   0x00007ffff7e272b0 <+128>:	mov    %rax,0x8(%rsp)
+   0x00007ffff7e272b5 <+133>:	lea    0x20(%rsp),%rax
+   0x00007ffff7e272ba <+138>:	mov    $0x2,%ecx
+   0x00007ffff7e272bf <+143>:	mov    %rax,0x10(%rsp)
+
+30	in isoc99_scanf.c
+   0x00007ffff7e272c4 <+148>:	mov    0x184cf5(%rip),%rax        # 0x7ffff7fabfc0
+   0x00007ffff7e272cb <+155>:	movl   $0x8,(%rsp)
+   0x00007ffff7e272d2 <+162>:	mov    (%rax),%rdi
+   0x00007ffff7e272d5 <+165>:	movl   $0x30,0x4(%rsp)
+   0x00007ffff7e272dd <+173>:	callq  0x7ffff7e27b80 <__vfscanf_internal>
+
+31	in isoc99_scanf.c
+32	in isoc99_scanf.c
+33	in isoc99_scanf.c
+   0x00007ffff7e272e2 <+178>:	mov    0x18(%rsp),%rcx
+   0x00007ffff7e272e7 <+183>:	xor    %fs:0x28,%rcx
+   0x00007ffff7e272f0 <+192>:	jne    0x7ffff7e272fa <__isoc99_scanf+202>
+   0x00007ffff7e272f2 <+194>:	add    $0xd8,%rsp
+   0x00007ffff7e272f9 <+201>:	retq   
+   0x00007ffff7e272fa <+202>:	callq  0x7ffff7ef3b00 <__stack_chk_fail>
+End of assembler dump.
+rax            0x0                 0
+rbx            0x555555555180      93824992235904
+rcx            0x555555555180      93824992235904
+rdx            0x7fffffffde98      140737488346776
+rsi            0x2                 2
+rdi            0x555555556004      93824992239620
+rbp            0x7fffffffdd90      0x7fffffffdd90
+rsp            0x7fffffffdd78      0x7fffffffdd78
+r8             0x0                 0
+r9             0x7ffff7fe0d50      140737354009936
+r10            0x0                 0
+r11            0x7ffff7f738f0      140737353562352
+r12            0x555555555060      93824992235616
+r13            0x7fffffffde80      140737488346752
+r14            0x0                 0
+r15            0x0                 0
+rip            0x7ffff7e27230      0x7ffff7e27230 <__isoc99_scanf>
+eflags         0x202               [ IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+0x00007ffff7e27234	25	in isoc99_scanf.c
+1: $rbp = (void *) 0x7fffffffdd90
+Dump of assembler code for function __isoc99_scanf:
+isoc99_scanf.c:
+25	in isoc99_scanf.c
+   0x00007ffff7e27230 <+0>:	endbr64 
+=> 0x00007ffff7e27234 <+4>:	sub    $0xd8,%rsp
+   0x00007ffff7e2723b <+11>:	mov    %rdi,%r10
+   0x00007ffff7e2723e <+14>:	mov    %rsi,0x28(%rsp)
+   0x00007ffff7e27243 <+19>:	mov    %rdx,0x30(%rsp)
+   0x00007ffff7e27248 <+24>:	mov    %rcx,0x38(%rsp)
+   0x00007ffff7e2724d <+29>:	mov    %r8,0x40(%rsp)
+   0x00007ffff7e27252 <+34>:	mov    %r9,0x48(%rsp)
+   0x00007ffff7e27257 <+39>:	test   %al,%al
+   0x00007ffff7e27259 <+41>:	je     0x7ffff7e27292 <__isoc99_scanf+98>
+   0x00007ffff7e2725b <+43>:	movaps %xmm0,0x50(%rsp)
+   0x00007ffff7e27260 <+48>:	movaps %xmm1,0x60(%rsp)
+   0x00007ffff7e27265 <+53>:	movaps %xmm2,0x70(%rsp)
+   0x00007ffff7e2726a <+58>:	movaps %xmm3,0x80(%rsp)
+   0x00007ffff7e27272 <+66>:	movaps %xmm4,0x90(%rsp)
+   0x00007ffff7e2727a <+74>:	movaps %xmm5,0xa0(%rsp)
+   0x00007ffff7e27282 <+82>:	movaps %xmm6,0xb0(%rsp)
+   0x00007ffff7e2728a <+90>:	movaps %xmm7,0xc0(%rsp)
+   0x00007ffff7e27292 <+98>:	mov    %fs:0x28,%rax
+   0x00007ffff7e2729b <+107>:	mov    %rax,0x18(%rsp)
+   0x00007ffff7e272a0 <+112>:	xor    %eax,%eax
+
+26	in isoc99_scanf.c
+27	in isoc99_scanf.c
+28	in isoc99_scanf.c
+29	in isoc99_scanf.c
+   0x00007ffff7e272a2 <+114>:	lea    0xe0(%rsp),%rax
+   0x00007ffff7e272aa <+122>:	mov    %rsp,%rdx
+   0x00007ffff7e272ad <+125>:	mov    %r10,%rsi
+   0x00007ffff7e272b0 <+128>:	mov    %rax,0x8(%rsp)
+   0x00007ffff7e272b5 <+133>:	lea    0x20(%rsp),%rax
+   0x00007ffff7e272ba <+138>:	mov    $0x2,%ecx
+   0x00007ffff7e272bf <+143>:	mov    %rax,0x10(%rsp)
+
+30	in isoc99_scanf.c
+   0x00007ffff7e272c4 <+148>:	mov    0x184cf5(%rip),%rax        # 0x7ffff7fabfc0
+   0x00007ffff7e272cb <+155>:	movl   $0x8,(%rsp)
+   0x00007ffff7e272d2 <+162>:	mov    (%rax),%rdi
+   0x00007ffff7e272d5 <+165>:	movl   $0x30,0x4(%rsp)
+   0x00007ffff7e272dd <+173>:	callq  0x7ffff7e27b80 <__vfscanf_internal>
+
+31	in isoc99_scanf.c
+32	in isoc99_scanf.c
+33	in isoc99_scanf.c
+   0x00007ffff7e272e2 <+178>:	mov    0x18(%rsp),%rcx
+   0x00007ffff7e272e7 <+183>:	xor    %fs:0x28,%rcx
+   0x00007ffff7e272f0 <+192>:	jne    0x7ffff7e272fa <__isoc99_scanf+202>
+   0x00007ffff7e272f2 <+194>:	add    $0xd8,%rsp
+   0x00007ffff7e272f9 <+201>:	retq   
+   0x00007ffff7e272fa <+202>:	callq  0x7ffff7ef3b00 <__stack_chk_fail>
+End of assembler dump.
+29	in isoc99_scanf.c
+1: $rbp = (void *) 0x7fffffffdd90
+Dump of assembler code for function __isoc99_scanf:
+isoc99_scanf.c:
+25	in isoc99_scanf.c
+   0x00007ffff7e27230 <+0>:	endbr64 
+   0x00007ffff7e27234 <+4>:	sub    $0xd8,%rsp
+   0x00007ffff7e2723b <+11>:	mov    %rdi,%r10
+   0x00007ffff7e2723e <+14>:	mov    %rsi,0x28(%rsp)
+   0x00007ffff7e27243 <+19>:	mov    %rdx,0x30(%rsp)
+   0x00007ffff7e27248 <+24>:	mov    %rcx,0x38(%rsp)
+   0x00007ffff7e2724d <+29>:	mov    %r8,0x40(%rsp)
+   0x00007ffff7e27252 <+34>:	mov    %r9,0x48(%rsp)
+   0x00007ffff7e27257 <+39>:	test   %al,%al
+   0x00007ffff7e27259 <+41>:	je     0x7ffff7e27292 <__isoc99_scanf+98>
+   0x00007ffff7e2725b <+43>:	movaps %xmm0,0x50(%rsp)
+   0x00007ffff7e27260 <+48>:	movaps %xmm1,0x60(%rsp)
+   0x00007ffff7e27265 <+53>:	movaps %xmm2,0x70(%rsp)
+   0x00007ffff7e2726a <+58>:	movaps %xmm3,0x80(%rsp)
+   0x00007ffff7e27272 <+66>:	movaps %xmm4,0x90(%rsp)
+   0x00007ffff7e2727a <+74>:	movaps %xmm5,0xa0(%rsp)
+   0x00007ffff7e27282 <+82>:	movaps %xmm6,0xb0(%rsp)
+   0x00007ffff7e2728a <+90>:	movaps %xmm7,0xc0(%rsp)
+   0x00007ffff7e27292 <+98>:	mov    %fs:0x28,%rax
+   0x00007ffff7e2729b <+107>:	mov    %rax,0x18(%rsp)
+   0x00007ffff7e272a0 <+112>:	xor    %eax,%eax
+
+26	in isoc99_scanf.c
+27	in isoc99_scanf.c
+28	in isoc99_scanf.c
+29	in isoc99_scanf.c
+=> 0x00007ffff7e272a2 <+114>:	lea    0xe0(%rsp),%rax
+   0x00007ffff7e272aa <+122>:	mov    %rsp,%rdx
+   0x00007ffff7e272ad <+125>:	mov    %r10,%rsi
+   0x00007ffff7e272b0 <+128>:	mov    %rax,0x8(%rsp)
+   0x00007ffff7e272b5 <+133>:	lea    0x20(%rsp),%rax
+   0x00007ffff7e272ba <+138>:	mov    $0x2,%ecx
+   0x00007ffff7e272bf <+143>:	mov    %rax,0x10(%rsp)
+
+30	in isoc99_scanf.c
+   0x00007ffff7e272c4 <+148>:	mov    0x184cf5(%rip),%rax        # 0x7ffff7fabfc0
+   0x00007ffff7e272cb <+155>:	movl   $0x8,(%rsp)
+   0x00007ffff7e272d2 <+162>:	mov    (%rax),%rdi
+   0x00007ffff7e272d5 <+165>:	movl   $0x30,0x4(%rsp)
+   0x00007ffff7e272dd <+173>:	callq  0x7ffff7e27b80 <__vfscanf_internal>
+
+31	in isoc99_scanf.c
+32	in isoc99_scanf.c
+33	in isoc99_scanf.c
+   0x00007ffff7e272e2 <+178>:	mov    0x18(%rsp),%rcx
+   0x00007ffff7e272e7 <+183>:	xor    %fs:0x28,%rcx
+   0x00007ffff7e272f0 <+192>:	jne    0x7ffff7e272fa <__isoc99_scanf+202>
+   0x00007ffff7e272f2 <+194>:	add    $0xd8,%rsp
+   0x00007ffff7e272f9 <+201>:	retq   
+   0x00007ffff7e272fa <+202>:	callq  0x7ffff7ef3b00 <__stack_chk_fail>
+End of assembler dump.
+
+#Nakon prolazenja kroz scanf() poziva se __vfscanf_internal
+
+30	in isoc99_scanf.c
+1: $rbp = (void *) 0x7fffffffdd90
+__vfscanf_internal (s=0x7ffff7fac980 <_IO_2_1_stdin_>, format=0x555555556004 "%d", argptr=argptr@entry=0x7fffffffdca0, mode_flags=mode_flags@entry=2) at vfscanf-internal.c:278
+278	vfscanf-internal.c: No such file or directory.
+
+#Iznad vidimo da izbacuje gresku vfscanf-internal.c: No such file or directory. To znaci da nesto nije uredu sa scanf().
+
+#0  0x00007ffff7e2c4b5 in __vfscanf_internal (s=<optimized out>, format=<optimized out>, argptr=argptr@entry=0x7fffffffdca0, mode_flags=mode_flags@entry=2) at vfscanf-internal.c:1895
+#1  0x00007ffff7e272e2 in __isoc99_scanf (format=<optimized out>) at isoc99_scanf.c:30
+#2  0x0000555555555172 in main () at primjer_2021_08.c:7
+
+#Vidimo da nam se Segmentation fault javio u liniji 7, sto odgovara scanf funkciji u sors kodu. Ukoliko otvorimo sors kod vidimo da
+se kao argument ne prosljedjuje adresa promjenjive, sto je i uzrok greske.
