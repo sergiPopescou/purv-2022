@@ -4,6 +4,7 @@ Program received signal SIGSEGV, Segmentation fault.
 0x000055555555520d in main (argc=1, argv=0x7fffffffdf98) at primjer_2021_10.c:20
 20	    niz[0] = *pok;
 
+
 ============================================================================================
 Desava se na liniji 20 source programa
 
