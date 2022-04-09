@@ -1,0 +1,96 @@
+Izvrsavanje programa daje Segmentation fault :
+============================================================================================
+Program received signal SIGSEGV, Segmentation fault.
+0x000055555555520d in main (argc=1, argv=0x7fffffffdf98) at primjer_2021_10.c:20
+20	    niz[0] = *pok;
+
+============================================================================================
+Desava se na liniji 20 source programa
+
+disas/s nam daje :
+
+============================================================================================
+Dump of assembler code for function main:
+primjer_2021_10.c:
+13	{
+   0x00005555555551c3 <+0>:	endbr64 
+   0x00005555555551c7 <+4>:	push   %rbp
+   0x00005555555551c8 <+5>:	mov    %rsp,%rbp
+   0x00005555555551cb <+8>:	sub    $0x30,%rsp
+   0x00005555555551cf <+12>:	mov    %edi,-0x24(%rbp)
+   0x00005555555551d2 <+15>:	mov    %rsi,-0x30(%rbp)
+   0x00005555555551d6 <+19>:	mov    %fs:0x28,%rax
+   0x00005555555551df <+28>:	mov    %rax,-0x8(%rbp)
+   0x00005555555551e3 <+32>:	xor    %eax,%eax
+
+14	    char * pok = funkcija();
+   0x00005555555551e5 <+34>:	mov    $0x0,%eax
+   0x00005555555551ea <+39>:	callq  0x555555555189 <funkcija>
+   0x00005555555551ef <+44>:	mov    %rax,-0x20(%rbp)
+
+15	    char niz[9];
+16		
+17	    memset(niz, 'y', sizeof(niz));
+   0x00005555555551f3 <+48>:	lea    -0x11(%rbp),%rax
+   0x00005555555551f7 <+52>:	mov    $0x9,%edx
+   0x00005555555551fc <+57>:	mov    $0x79,%esi
+   0x0000555555555201 <+62>:	mov    %rax,%rdi
+   0x0000555555555204 <+65>:	callq  0x555555555090 <memset@plt>
+
+18	    //printf("size is %ld",sizeof(niz));
+19	
+20	    niz[0] = *pok;
+   0x0000555555555209 <+70>:	mov    -0x20(%rbp),%rax
+=> 0x000055555555520d <+74>:	movzbl (%rax),%eax
+   0x0000555555555210 <+77>:	mov    %al,-0x11(%rbp)
+
+--Type <RET> for more, q to quit, c to continue without paging--ret
+21	    printf("\n%c ",niz[0]);
+   0x0000555555555213 <+80>:	movzbl -0x11(%rbp),%eax
+   0x0000555555555217 <+84>:	movsbl %al,%eax
+   0x000055555555521a <+87>:	mov    %eax,%esi
+   0x000055555555521c <+89>:	lea    0xde1(%rip),%rdi        # 0x555555556004
+   0x0000555555555223 <+96>:	mov    $0x0,%eax
+   0x0000555555555228 <+101>:	callq  0x555555555080 <printf@plt>
+
+22	    return 0;
+   0x000055555555522d <+106>:	mov    $0x0,%eax
+
+23	}
+   0x0000555555555232 <+111>:	mov    -0x8(%rbp),%rcx
+   0x0000555555555236 <+115>:	xor    %fs:0x28,%rcx
+   0x000055555555523f <+124>:	je     0x555555555246 <main+131>
+   0x0000555555555241 <+126>:	callq  0x555555555070 <__stack_chk_fail@plt>
+   0x0000555555555246 <+131>:	leaveq 
+   0x0000555555555247 <+132>:	retq   
+End of assembler dump.
+
+============================================================================================
+
+Dakle problem nastaje kada pozivamo funkcija();
+char * pok = funkcija();  
+
+jer iz ove funkcije vracamo adresu lokalne varijable c koja ima vrijednost 'x' u tom trenutku. 
+Nakon sto se izadje iz funkcije ta varijabla se unistava, tako da *pok pokazuje na adresu koja vise nepostoji.
+
+
+   0x00005555555551ea <+39>:	callq  0x555555555189 <funkcija>   ------> pozivamo funkciju 
+   0x00005555555551ef <+44>:	mov    %rax,-0x20(%rbp)	    ------> smjestamo iz rax registra (koji sadrzi povratnu vrijednost iz funkcije, dakle adresu c) u -0x20(%rbp)  
+   
+   gdje je %rbp registar koji pokazuje na dno steka trenutne funkcije (main)
+   
+   **pod varijabla se unistava se misli da stek cisti dio koji je zauzimala funkcija koja je zavrsila(dakle sve lokalne varijable u njoj).
+   
+   Ovo rezultuje greskom na liniji 20 :
+   
+   niz[0] = *pok;
+   0x0000555555555209 <+70>:	mov    -0x20(%rbp),%rax  --------> adresu stavljamo %rax (onu koju smo prethodno stavili u -0x20(%rbp) )
+=> 0x000055555555520d <+74>:	movzbl (%rax),%eax     -------> na ovoj liniji pokusavamo da dobijemo vrijednost adrese iz %rax sa (%rax) i tu dobijamo gresku.
+   0x0000555555555210 <+77>:	mov    %al,-0x11(%rbp)
+   
+   Jer ovde pokusavamo da referenciramo vrijednost koja nepostoji(adresa).
+   
+   Rijesenje je da iz funkcije vracamo c po vrijednosti a ne po adresi.
+   
+   
+   
