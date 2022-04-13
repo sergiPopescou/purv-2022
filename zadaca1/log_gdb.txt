@@ -1,0 +1,149 @@
+*** Pomocu file komande ucitacemo izvrsni fajl naseg programa 
+Reading symbols from primjer...
+**** Komandom list prikazuje se source kod programa 
+1	 #include<stdio.h> 
+2	 #include<stdlib.h> 
+3	 #include<string.h> 
+4	  
+5	 int main(void) 
+6	 { 
+7	     char *strng ; 
+8	     strcat(strng, " dodatni strng"); 
+9	     printf("\n %s \n", strng); 
+10	     return 0; 
+
+*** Provjera da li su postavljeni neki breakpoint-i 
+No breakpoints or watchpoints.
+
+*** Komandom break postavljaju se brekpoint-i na zeljenu liniju koda 
+Breakpoint 1 at 0x1149: file primjer_2021_06.c, line 6.
+Breakpoint 2 at 0x1155: file primjer_2021_06.c, line 8.
+Note: breakpoint 2 also set at pc 0x1155.
+Breakpoint 3 at 0x1155: file primjer_2021_06.c, line 8.
+Breakpoint 4 at 0x119c: file primjer_2021_06.c, line 9.
+
+*** Sada mozemo pokrenuti program komandom run ili skraceno r 
+Starting program: /home/nemanja/purv2022/lab_1/zadaca/zadaca1/primjer 
+
+Breakpoint 1, main () at primjer_2021_06.c:6
+6	 { 
+
+*** Program se zaustavlja na prvom breakpoint-u na liniji 6 
+*** Pomocu komande disas mozemo pogledati kako izgledaju instrukcije koje se izvrsavaju u pozadini, odnosno asemblerski kod 
+Dump of assembler code for function main:
+primjer_2021_06.c:
+6	 { 
+=> 0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+7	     char *strng ; 
+8	     strcat(strng, " dodatni strng"); 
+   0x0000555555555155 <+12>:	mov    -0x8(%rbp),%rax
+   0x0000555555555159 <+16>:	mov    $0xffffffffffffffff,%rcx
+   0x0000555555555160 <+23>:	mov    %rax,%rdx
+   0x0000555555555163 <+26>:	mov    $0x0,%eax
+   0x0000555555555168 <+31>:	mov    %rdx,%rdi
+   0x000055555555516b <+34>:	repnz scas %es:(%rdi),%al
+   0x000055555555516d <+36>:	mov    %rcx,%rax
+   0x0000555555555170 <+39>:	not    %rax
+   0x0000555555555173 <+42>:	lea    -0x1(%rax),%rdx
+   0x0000555555555177 <+46>:	mov    -0x8(%rbp),%rax
+   0x000055555555517b <+50>:	add    %rdx,%rax
+   0x000055555555517e <+53>:	movabs $0x696e7461646f6420,%rsi
+   0x0000555555555188 <+63>:	mov    %rsi,(%rax)
+   0x000055555555518b <+66>:	movl   $0x72747320,0x8(%rax)
+   0x0000555555555192 <+73>:	movw   $0x676e,0xc(%rax)
+   0x0000555555555198 <+79>:	movb   $0x0,0xe(%rax)
+
+9	     printf("\n %s \n", strng); 
+   0x000055555555519c <+83>:	mov    -0x8(%rbp),%rax
+Quit
+
+**** Izvrsavanje do sljedeceg breakpoint-a je moguce sa continue(c), takodjer moguce je i izvrsavati liniju po liniju source koda pomoctu step komande ili liniju po liniju instrukcija sa stepi 
+
+Breakpoint 2, main () at primjer_2021_06.c:8
+8	     strcat(strng, " dodatni strng"); 
+Dump of assembler code for function main:
+primjer_2021_06.c:
+6	 { 
+   0x0000555555555149 <+0>:	endbr64 
+   0x000055555555514d <+4>:	push   %rbp
+   0x000055555555514e <+5>:	mov    %rsp,%rbp
+   0x0000555555555151 <+8>:	sub    $0x10,%rsp
+
+7	     char *strng ; 
+8	     strcat(strng, " dodatni strng"); 
+=> 0x0000555555555155 <+12>:	mov    -0x8(%rbp),%rax
+   0x0000555555555159 <+16>:	mov    $0xffffffffffffffff,%rcx
+   0x0000555555555160 <+23>:	mov    %rax,%rdx
+   0x0000555555555163 <+26>:	mov    $0x0,%eax
+   0x0000555555555168 <+31>:	mov    %rdx,%rdi
+   0x000055555555516b <+34>:	repnz scas %es:(%rdi),%al
+   0x000055555555516d <+36>:	mov    %rcx,%rax
+   0x0000555555555170 <+39>:	not    %rax
+   0x0000555555555173 <+42>:	lea    -0x1(%rax),%rdx
+   0x0000555555555177 <+46>:	mov    -0x8(%rbp),%rax
+   0x000055555555517b <+50>:	add    %rdx,%rax
+   0x000055555555517e <+53>:	movabs $0x696e7461646f6420,%rsi
+   0x0000555555555188 <+63>:	mov    %rsi,(%rax)
+   0x000055555555518b <+66>:	movl   $0x72747320,0x8(%rax)
+   0x0000555555555192 <+73>:	movw   $0x676e,0xc(%rax)
+   0x0000555555555198 <+79>:	movb   $0x0,0xe(%rax)
+
+9	     printf("\n %s \n", strng); 
+   0x000055555555519c <+83>:	mov    -0x8(%rbp),%rax
+Quit
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+0x000055555555516b in main () at primjer_2021_06.c:8
+8	     strcat(strng, " dodatni strng"); 
+*** Ovde, na 8. liniji koda, desava se segmentation faul, kao sto se vidi iz ove poruke; Dakle prilikom poziva funkcije strcat 
+
+Continuing.
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+*** Program je prekinut usljede segmentation fault-a i zavrsen je 
+
+*** Ukoliko ponovno pokrenemo program, moze se otkloniti seg faul na sljedeci nacin 
+Starting program: /home/nemanja/purv2022/lab_1/zadaca/zadaca1/primjer 
+
+Breakpoint 1, main () at primjer_2021_06.c:6
+6	 { 
+#0  main () at primjer_2021_06.c:6
+1	 #include<stdio.h> 
+2	 #include<stdlib.h> 
+3	 #include<string.h> 
+4	  
+5	 int main(void) 
+6	 { 
+7	     char *strng ; 
+8	     strcat(strng, " dodatni strng"); 
+9	     printf("\n %s \n", strng); 
+10	     return 0; 
+Continuing.
+
+Breakpoint 2, main () at primjer_2021_06.c:8
+8	     strcat(strng, " dodatni strng"); 
+*** Pomocu komande set moguce je promijeniti promjenljivu strng i tako otkloniti gresku 
+*** Segmentation fault nastaje zbog toga sto promjenljiva strng nije inicijalizovana, pa ako u nju stavimo barem null terminator , funkcija strcat ce se moci izvrsiti  
+Starting program: /home/nemanja/purv2022/lab_1/zadaca/zadaca1/primjer 
+
+Breakpoint 1, main () at primjer_2021_06.c:6
+6	 { 
+Continuing.
+
+Breakpoint 2, main () at primjer_2021_06.c:8
+8	     strcat(strng, " dodatni strng"); 
+Continuing.
+
+Breakpoint 4, main () at primjer_2021_06.c:9
+9	     printf("\n %s \n", strng); 
+*** Vidimo da je program prosao kriticnu tacku i stigao do printf 
+Continuing.
+[Inferior 1 (process 465) exited normally]
+No stack.
+The program is not being run.
