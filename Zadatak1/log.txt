@@ -93,6 +93,7 @@ Nakon sto se izadje iz funkcije ta varijabla se unistava, tako da *pok pokazuje 
    
 Dokaz :
 
+============================================================================================
 (gdb) break 16
 (gdb) display *pok
 1: *pok = <error: Cannot access memory at address 0x0>
@@ -101,7 +102,7 @@ Dokaz :
 1: *pok = <error: Cannot access memory at address 0x0>
 2: pok = 0x0
 
-
+============================================================================================
  Rijesenje je da iz funkcije vracamo c po vrijednosti a ne po adresi.
    
    
