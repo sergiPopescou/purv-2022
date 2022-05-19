@@ -1,0 +1,1 @@
+arm-linux-gnueabihf-gcc -std=c99 -pthread ./main.c -g3 -o ./app
