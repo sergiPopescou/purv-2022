@@ -13,12 +13,12 @@
 static sigset_t sigset;
 
 static int ctrl_var;
-int ctrl_max = 4800;
+#define CTRL_MAX = 4802;
 
 static void wait_next_activation(void)
 {
     int dummy;
-   if(ctrl_max==4802){
+   if(ctrl_var==CTRL_MAX){
        ctrl_var=2;
    }
    ctrl_var+=2;
