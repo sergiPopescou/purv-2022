@@ -1,5 +1,5 @@
 CR_C := arm-linux-gnueabihf-
-MODULES := /home/nikola/Raspberrypi_tools/linux
+MODULES := /home/nikola/Raspberrypi_tools/rpi-kernel/linux
 obj-m := GoL.o
 
 all:

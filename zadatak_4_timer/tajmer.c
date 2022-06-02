@@ -13,7 +13,7 @@
 static sigset_t sigset;
 
 static int ctrl_var;
-#define CTRL_MAX = 4802;
+#define CTRL_MAX 4802
 
 static void wait_next_activation(void)
 {

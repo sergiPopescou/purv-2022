@@ -103,7 +103,6 @@ void* evaluate_cell(void* args){
     	}
 	    }
         signal_from_cell(p->x,p->y);
-       // pthread_mutex_unlock(&cell_mutex);
     }
     
     return 0;
@@ -149,25 +148,26 @@ void * print_cells(){
             4.Broj zivih celija
         */
         char text[50];
-        sprintf(text,"Generacija: %d\nZive: %d\nRodjenje: %d\nUmrle: %d\n",num_generations,live_cells,born_cells,died_cells);
-        
+        sprintf(text, "Generacija: %d\nZive: %d\nRodjenje: %d\nUmrle: %d\n", num_generations, live_cells, born_cells, died_cells);
+
         //=========================//
-        int fd=open("/proc/GoL_stat",O_RDWR);
-        if(fd < 0) {
-            printf("Cannot open device file...\n");
-            return 0;
-        }
-        write(fd,text,strlen(text));
-        close(fd);
-        // Vracanje na pocetne vrijednosti
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
-                statistic_cell[i][j]=0;
+        int fd = open("/proc/GoL_stat", O_RDWR);
+        if (fd > 0)
+        {
+            write(fd, text, strlen(text));
+            close(fd);
+            // Vracanje na pocetne vrijednosti
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    statistic_cell[i][j] = 0;
+                }
             }
+            born_cells = 0;
+            died_cells = 0;
+            live_cells = 0;
         }
-        born_cells=0;
-        died_cells=0;
-        live_cells=0;
         //==========================//
 
         sleep(2);
@@ -218,8 +218,6 @@ int main(){
         printf("\n");
     }
         printf("\n\n\n");
-    //-----inicijalizacija mutex-a-------
-    pthread_mutex_init(&cell_mutex,NULL);
 
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){

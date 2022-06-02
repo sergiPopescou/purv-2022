@@ -42,11 +42,11 @@ static struct file_operations fops =
         .release        = stat_release,
 };
  
-static const struct proc_ops proc_fops = {
-        .proc_open = open_proc,
-        .proc_read = read_proc,
-        .proc_write = write_proc,
-        .proc_release = release_proc
+static const struct file_operations proc_fops = {
+        .open = open_proc,
+        .read = read_proc,
+        .write = write_proc,
+        .release = release_proc
 };
  
 static int open_proc(struct inode *inode, struct file *file)
@@ -152,7 +152,7 @@ r_class:
  
 void __exit stat_driver_exit(void)
 {
-        remove_proc_entry("stat_proc",NULL);
+        remove_proc_entry("GoL_stat",NULL);
         device_destroy(dev_class,dev);
         class_destroy(dev_class);
         cdev_del(&stat_cdev);
