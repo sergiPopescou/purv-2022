@@ -39,26 +39,26 @@ int start_periodic_timer(uint64_t offs, int period)
     t.it_interval.tv_sec = period / 1000000;
     t.it_interval.tv_nsec = (period % 1000000) * 1000;
 	
-	// ovaj dio ostaje isti
+    // ovaj dio ostaje isti
     sigemptyset(&sigset);
     sigaddset(&sigset, signal);
     sigprocmask(SIG_BLOCK, &sigset, NULL);
-
-	// alociranje i popunjavanje sigevent strukture
+    
+    // alociranje i popunjavanje sigevent strukture
     memset(&sigev, 0, sizeof(struct sigevent));
     sigev.sigev_notify = SIGEV_SIGNAL; // kada vrijeme istekne 
-		// okinuce se signal, jer se ostatak
-		// koda oslanja na signale
+					// okinuce se signal, jer se ostatak
+					// koda oslanja na signale
     sigev.sigev_signo = signal;	// koji signal? pa SIGALRM, naravno
 	
-	// kreiranje tajmera
+    // kreiranje tajmera
     res = timer_create(CLOCK_MONOTONIC, &sigev, &timer);
     if (res < 0) {
         perror("Timer Create");
 
 	exit(-1);
     }
-	// pokretanje tajmera 
+    // pokretanje tajmera 
     return timer_settime(timer, 0 /*TIMER_ABSTIME*/, &t, NULL);
 }
 
