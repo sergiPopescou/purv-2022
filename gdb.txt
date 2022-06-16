@@ -1,0 +1,98 @@
+Postavljanje breakpointa.Breakpoint 1 at 0x66c: file primjer_2021_04.c, line 13.
+Breakpoint 2 at 0x685: file primjer_2021_04.c, line 18.
+Pozivanje komande "watch" za varijablu "suma".Hardware watchpoint 3: suma
+Starting program: /home/bojan/Desktop/purv-2022/zadatak1 
+
+Breakpoint 1, main () at primjer_2021_04.c:13
+13		 char *poruka = "Suma brojeva 1 i 2 je";
+Continuing.
+
+Breakpoint 2, main () at primjer_2021_04.c:18
+18	     suma=add_numbers(n1,n2);
+Ispis asemblerskog koda uz opciju "/s" za prikaz izvornog koda.Dump of assembler code for function main:
+primjer_2021_04.c:
+12	{
+   0x0000555555554664 <+0>:	push   %rbp
+   0x0000555555554665 <+1>:	mov    %rsp,%rbp
+   0x0000555555554668 <+4>:	sub    $0x20,%rsp
+
+13		 char *poruka = "Suma brojeva 1 i 2 je";
+   0x000055555555466c <+8>:	lea    0xe1(%rip),%rax        # 0x555555554754
+   0x0000555555554673 <+15>:	mov    %rax,-0x10(%rbp)
+
+14	     int *p; 
+15	     int n1=1;
+   0x0000555555554677 <+19>:	movl   $0x1,-0x18(%rbp)
+
+16	     int n2=2;
+   0x000055555555467e <+26>:	movl   $0x2,-0x14(%rbp)
+
+17	     
+18	     suma=add_numbers(n1,n2);
+=> 0x0000555555554685 <+33>:	mov    -0x14(%rbp),%edx
+   0x0000555555554688 <+36>:	mov    -0x18(%rbp),%eax
+   0x000055555555468b <+39>:	mov    %edx,%esi
+   0x000055555555468d <+41>:	mov    %eax,%edi
+   0x000055555555468f <+43>:	callq  0x55555555464a <add_numbers>
+   0x0000555555554694 <+48>:	mov    %eax,0x20097a(%rip)        # 0x555555755014 <suma>
+
+19	     printf("%s %d %d\n", poruka, suma, p);
+   0x000055555555469a <+54>:	mov    0x200974(%rip),%edx        # 0x555555755014 <suma>
+   0x00005555555546a0 <+60>:	mov    -0x8(%rbp),%rcx
+   0x00005555555546a4 <+64>:	mov    -0x10(%rbp),%rax
+   0x00005555555546a8 <+68>:	mov    %rax,%rsi
+   0x00005555555546ab <+71>:	lea    0xb8(%rip),%rdi        # 0x55555555476a
+   0x00005555555546b2 <+78>:	mov    $0x0,%eax
+   0x00005555555546b7 <+83>:	callq  0x555555554520 <printf@plt>
+
+20	
+21	     return 0;
+   0x00005555555546bc <+88>:	mov    $0x0,%eax
+
+22	}   0x00005555555546c1 <+93>:	leaveq 
+   0x00005555555546c2 <+94>:	retq   
+End of assembler dump.
+Poziv komande "info frame".Stack level 0, frame at 0x7fffffffdfb0:
+ rip = 0x555555554685 in main (primjer_2021_04.c:18); 
+    saved rip = 0x7ffff7a03c87
+ source language c.
+ Arglist at 0x7fffffffdfa0, args: 
+ Locals at 0x7fffffffdfa0, Previous frame's sp is 0x7fffffffdfb0
+ Saved registers:
+  rbp at 0x7fffffffdfa0, rip at 0x7fffffffdfa8
+Prikaz stack-a.0x7fffffffdf80:	0x555546d0	0x00005555	0x00000001	0x00000002
+0x7fffffffdf90:	0x55554754	0x00005555	0x00000000	0x00000000
+0x7fffffffdfa0:	0x555546d0	0x00005555	0xf7a03c87	0x00007fff
+0x7fffffffdfb0:	0x00000001	0x00000000	0xffffe088	0x00007fff
+0x7fffffffdfc0:	0x00008000	0x00000001	0x55554664	0x00005555
+0x7fffffffdfd0:	0x00000000	0x00000000	0x5b5bf61a	0x42e0ac18
+0x7fffffffdfe0:	0x55554540	0x00005555	0xffffe080	0x00007fff
+0x7fffffffdff0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7fffffffe000:	0x699bf61a	0x17b5f94d	0xae85f61a	0x17b5e9f2
+0x7fffffffe010:	0x00000000	0x00007fff	0x00000000	0x00000000
+0x7fffffffe020:	0x00000000	0x00000000	0xf7de38d3	0x00007fff
+0x7fffffffe030:	0xf7dc9638	0x00007fff	0x1e87b543	0x00000000
+0x7fffffffe040:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7fffffffe050:	0x00000000	0x00000000	0x55554540	0x00005555
+0x7fffffffe060:	0xffffe080	0x00007fff	0x5555456a	0x00005555
+0x7fffffffe070:	0xffffe078	0x00007fff	0x0000001c	0x00000000
+0x7fffffffe080:	0x00000001	0x00000000	0xffffe3b4	0x00007fff
+0x7fffffffe090:	0x00000000	0x00000000	0xffffe3db	0x00007fff
+0x7fffffffe0a0:	0xffffe3f1	0x00007fff	0xffffe9dd	0x00007fff
+0x7fffffffe0b0:	0xffffe9ff	0x00007fff	0xffffea16	0x00007fff
+0x7fffffffe0c0:	0xffffea25	0x00007fff	0xffffea36	0x00007fff
+0x7fffffffe0d0:	0xffffea41	0x00007fff	0xffffea5c	0x00007fff
+0x7fffffffe0e0:	0xffffea7c	0x00007fff	0xffffea90	0x00007fff
+0x7fffffffe0f0:	0xffffea9f	0x00007fff	0xffffeaaa	0x00007fff
+0x7fffffffe100:	0xffffead3	0x00007fff	0xffffeae4	0x00007fff
+Continuing.
+
+Hardware watchpoint 3: suma
+
+Old value = 0
+New value = 3
+main () at primjer_2021_04.c:19
+19	     printf("%s %d %d\n", poruka, suma, p);
+Primjetimo promjenu vrijednosti varijable "suma".Continuing.
+[Inferior 1 (process 7586) exited normally]
+Program se izvrsava bez problema.
